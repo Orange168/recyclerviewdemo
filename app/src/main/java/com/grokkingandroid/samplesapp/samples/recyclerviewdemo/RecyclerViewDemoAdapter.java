@@ -11,8 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewDemoAdapter
-        extends RecyclerView.Adapter
+public class RecyclerViewDemoAdapter extends RecyclerView.Adapter
                 <RecyclerViewDemoAdapter.ListItemViewHolder> {
 
     private List<DemoModel> items;
@@ -55,8 +54,7 @@ public class RecyclerViewDemoAdapter
 
     @Override
     public ListItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View itemView = LayoutInflater.
-                from(viewGroup.getContext()).
+        View itemView = LayoutInflater.from(viewGroup.getContext()).
                 inflate(R.layout.item_demo_01, viewGroup, false);
         return new ListItemViewHolder(itemView);
     }

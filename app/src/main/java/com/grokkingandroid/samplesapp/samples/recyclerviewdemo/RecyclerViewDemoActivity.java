@@ -5,11 +5,11 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.ChangeTransform;
@@ -19,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewOutlineProvider;
 import android.view.Window;
 import android.widget.ImageButton;
 
@@ -61,10 +60,12 @@ public class RecyclerViewDemoActivity
         // just remember: LinearLayoutManager
         // supports HORIZONTAL layout out of the box
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        // you can set the first visible item like this:
-        layoutManager.scrollToPosition(0);
-        recyclerView.setLayoutManager(layoutManager);
 
+        // you can set the first visible item like this:
+        layoutManager.scrollToPosition(6);
+
+//	    recyclerView.setLayoutManager(layoutManager);
+	    recyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
         // allows for optimizations if all items are of the same size:
         recyclerView.setHasFixedSize(true);
@@ -223,6 +224,7 @@ public class RecyclerViewDemoActivity
             return super.onSingleTapConfirmed(e);
         }
 
+	    @Override
         public void onLongPress(MotionEvent e) {
             View view = recyclerView.findChildViewUnder(e.getX(), e.getY());
             if (actionMode != null) {
