@@ -8,7 +8,6 @@ import net.danlew.android.joda.JodaTimeAndroid;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -39,16 +38,14 @@ public class RecyclerViewDemoApp extends Application {
         return new ArrayList<DemoModel>(demoData);
     }
 
-    public static final List<DemoModel> addItemToList(DemoModel model, int position) {
+    public static final void addItemToList(DemoModel model, int position) {
         demoData.add(position, model);
         demoMap.put(model.id, model);
-        return new ArrayList<DemoModel>(demoData);
     }
 
-    public static final List<DemoModel> removeItemFromList(int position) {
-        demoData.remove(position);
+    public static final void removeItemFromList(int position) {
         demoMap.remove(demoData.get(position).id);
-        return new ArrayList<DemoModel>(demoData);
+        demoData.remove(position);
     }
 
     public static DemoModel findById(int id) {

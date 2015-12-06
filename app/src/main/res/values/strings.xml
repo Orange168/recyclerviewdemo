@@ -4,6 +4,7 @@
     <string name="app_name">RecyclerViewDemo</string>
     <string name="action_add">Add</string>
     <string name="action_remove">Remove</string>
+    <string name="action_staggered_grid">start</string>
     <string name="selected_count">%1$s selected</string>
 
 </resources>

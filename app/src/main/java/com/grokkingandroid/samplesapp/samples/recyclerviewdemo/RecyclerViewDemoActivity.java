@@ -41,6 +41,7 @@ public class RecyclerViewDemoActivity
     ActionMode actionMode;
     ImageButton fab;
     Context mContext;
+	public static int layoutMgr = 1 ;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -54,18 +55,61 @@ public class RecyclerViewDemoActivity
         setContentView(R.layout.activity_recyclerview_demo);
         fab = (ImageButton) findViewById(R.id.fab_add);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+	    switch (layoutMgr){
+		    case 0:
+			    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+			    // actually VERTICAL is the default,
+			    // just remember: LinearLayoutManager
+			    // supports HORIZONTAL layout out of the box
+			    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        // actually VERTICAL is the default,
-        // just remember: LinearLayoutManager
-        // supports HORIZONTAL layout out of the box
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+			    // you can set the first visible item like this:
+			    layoutManager.scrollToPosition(6);
+			    recyclerView.setLayoutManager(layoutManager);
+			    RecyclerView.ItemDecoration itemDecoration =
+					    new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+//			    layoutManager.getDecoratedBottom()
+//				layoutManager.getLeftDecorationWidth()
+//			    layoutManager.layoutDecorated();
+//			    layoutManager.measureChild();
+			    /**
+			     * Run a FILL operation
+			     * when something change invoke
+			     *
+			     */
+//				layoutManager.onLayoutChildren();
+			    //which ases enable scrolling
+			    layoutManager.canScrollHorizontally();
+			    layoutManager.canScrollHorizontally();
+			    /**
+			     * clamp supplied delta against boundary conditions Shift all views in the layout
+			     * Trigger a FILL  operation
+			     * Report back actual distance scrolled
+			     */
+//			    layoutManager.scrollVerticallyBy()
 
-        // you can set the first visible item like this:
-        layoutManager.scrollToPosition(6);
-
-//	    recyclerView.setLayoutManager(layoutManager);
-	    recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+			    recyclerView.addItemDecoration(itemDecoration);
+			    break;
+		    case 1:
+			    GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2,
+					    GridLayoutManager.VERTICAL,false);
+//			    gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//				    @Override
+//				    public int getSpanSize(int position) {
+//					    return position;//(position % 3 == 0 ? 2 : 1);
+//				    }
+//			    });
+			    recyclerView.setLayoutManager(gridLayoutManager);
+			    recyclerView.addItemDecoration(new DividerGridItemDecoration(mContext));
+			    break;
+		    case 2:
+			    startActivity(new Intent(this,StaggeredGridLayoutActivity.class));
+//			    StaggeredGridLayoutManager staggeredGridLayoutManager =
+//					    new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
+//			    recyclerView.setLayoutManager(staggeredGridLayoutManager);
+//			    recyclerView.addItemDecoration(new DividerGridItemDecoration(mContext));
+			    break;
+	    }
 
         // allows for optimizations if all items are of the same size:
         recyclerView.setHasFixedSize(true);
@@ -74,9 +118,6 @@ public class RecyclerViewDemoActivity
         adapter = new RecyclerViewDemoAdapter(items);
         recyclerView.setAdapter(adapter);
 
-        RecyclerView.ItemDecoration itemDecoration =
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-        recyclerView.addItemDecoration(itemDecoration);
 
         // this is the default; this call is actually only necessary with custom ItemAnimators
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -104,9 +145,14 @@ public class RecyclerViewDemoActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.action_remove) {
-            removeItemFromList();
-        }
+	    switch (item.getItemId()) {
+		    case R.id.action_remove:
+			    removeItemFromList();
+			    break;
+		    case R.id.action_stagger_activity:
+			    startActivity(new Intent(this, StaggeredGridLayoutActivity.class));
+			    break;
+	    }
         return true;
     }
 

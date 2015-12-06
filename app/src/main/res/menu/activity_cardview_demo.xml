@@ -6,4 +6,9 @@
         android:title="@string/action_remove"
         android:orderInCategory="100"
         android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_stagger_activity"
+        android:icon="@drawable/actionbar_add_icon"
+        android:title="@string/action_remove"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom" />
 </menu>
